@@ -1,1 +1,1 @@
-module.exports = () =>'fun run'
+module.exports = () =>'function run'

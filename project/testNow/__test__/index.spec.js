@@ -1,3 +1,15 @@
+const fs = require('fs')
+test('集成测试', () => {
+    //准备环境
+    //删除上一次测试文件夹
+    fs.rmdirSync(__dirname + '/data/__test__',{
+        recursive: true,
+    })
+
+    const src = new (require('../index'));
+    src.genJestSource(__dirname + '/data')
+})
+
 test('测试代码生成:', () => {
     const src = new (require('../index'));
     const ret = src.getTestSource('fun', 'class');
@@ -7,8 +19,8 @@ test('测试代码生成:', () => {
             test('TEST:fun',() => {
                 const fun 
                     = require('../class')
+                const ret = fun()
             })
-            const ret = fun()
             // expect(ret)
             //    .toBe('test return')
         `)
