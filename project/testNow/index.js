@@ -23,18 +23,20 @@ module.exports = class testNow {
         const testFileName = this.getTestFileName(fileName);
         //判断此文件是否存在
         if(fs.existsSync(testFileName)){
-            console.log(`该测试代码已存在:`,testFileName)
             return
         }
 
         const mod = require(fileName);
+        console.log('mod',mod+'')
         let source
+        console.log('path.basename(fileName)',path.basename(fileName))
         if(typeof mod === 'object'){
             source = Object.keys(mod)
                 .map(v => this.getTestSource(v,path.basename(fileName),true))
                 .join('\n')
         }else if(typeof mod === 'function'){
-            source = this.getTestSource(path.basename(fileName).replace('.js',''),basename)
+            const baseName = path.basename(fileName)
+            source = this.getTestSource(baseName.replace('.js',''),baseName)
         }
         fs.writeFileSync(testFileName,source)
     }
@@ -45,12 +47,10 @@ module.exports = class testNow {
      * @param {Boolean} isClass false:不是对象
      */
     getTestSource(methodName,classFile,isClass = false){
-        console.log('getTestSource',methodName)
-        console.log('**************',classFile)
         return `
             test('${'TEST:' + methodName}',() => {
                 const ${isClass ? ('{' + methodName + '}') : methodName} 
-                    = require('${'../' + classFile}')
+                    = require(\'${'../' + classFile}\')
                 const ret = ${methodName}()
             })
             // expect(ret)
