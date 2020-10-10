@@ -30,12 +30,12 @@ module.exports = class testNow {
         console.log('mod',mod+'')
         let source
         console.log('path.basename(fileName)',path.basename(fileName))
+        const baseName = path.basename(fileName)
         if(typeof mod === 'object'){
             source = Object.keys(mod)
-                .map(v => this.getTestSource(v,path.basename(fileName),true))
+                .map(v => this.getTestSource(v,baseName,true))
                 .join('\n')
         }else if(typeof mod === 'function'){
-            const baseName = path.basename(fileName)
             source = this.getTestSource(baseName.replace('.js',''),baseName)
         }
         fs.writeFileSync(testFileName,source)
