@@ -5,4 +5,5 @@ const fs = require('../mySart/mkDir')
 // fs.fileGo();
 // fs.test();
 // fs.createDir('./a/b')
-fs.ivy('../2/3/1/')
+// fs.ivy('../2/3/1/')
+fs.ivy.readdir('./')

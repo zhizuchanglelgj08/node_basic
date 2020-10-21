@@ -1,5 +1,8 @@
-const fs = require('fs')
-exports.ivy = function (dir,isCreateDir= true) {
+const { rejects } = require('assert');
+const fs = require('fs');
+const { resolve } = require('path');
+let ivy = Object.create(null)
+ivy.mkdir = function (dir,isCreateDir= true) {
     if (!dir) {
         console.log(new Error('dir is null'))
         return;
@@ -35,8 +38,27 @@ exports.ivy = function (dir,isCreateDir= true) {
                     dir2 && dir1.push(dir2.shift())
                     dir2 && ivy_toMk();
                 }
-                
             })
         }
     }
 }
+ivy.readdir = function(dirname){
+    console.log(dirname)
+    let array = [];
+    let ivy_toRead = function (dirname){
+        // let url = dir1.join('/');
+        let nowV ;
+        let res = fs.readdir(dirname,(err,e)=>{
+            if(err){
+                console.log(err);
+                return
+            }
+            array = array.concat(e)
+        })
+        console.log('fs',array)
+        return array
+    }
+    ivy_toRead(dirname)
+    
+}
+exports.ivy = ivy;
