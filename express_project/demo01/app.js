@@ -6,4 +6,11 @@ const fs = require('../mySart/mkDir')
 // fs.test();
 // fs.createDir('./a/b')
 // fs.ivy('../2/3/1/')
-fs.ivy.readdir('./')
+let a ;
+fs.ivy.readdir('./',function (obj) {
+    console.log(obj)
+})
+// let wait = new Promise((resolve,reject)=>{
+//     resolve(123);
+// });
+// console.log(wait.then(function(r){console.log(r)}))

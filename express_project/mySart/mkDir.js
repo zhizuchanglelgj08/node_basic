@@ -41,24 +41,39 @@ ivy.mkdir = function (dir,isCreateDir= true) {
             })
         }
     }
-}
-ivy.readdir = function(dirname){
-    console.log(dirname)
-    let array = [];
-    let ivy_toRead = function (dirname){
+}       
+
+ivy.readdir = function(dirname,callback){
+    let obj = {};
+    JSON.stringify(obj) == '{}' && setTimeout(function(){
+        callback(obj)
+    },1000)    
+    ivy_read(dirname,callback)
+    function ivy_read(dirname,callback){
         // let url = dir1.join('/');
-        let nowV ;
-        let res = fs.readdir(dirname,(err,e)=>{
-            if(err){
-                console.log(err);
-                return
-            }
-            array = array.concat(e)
-        })
-        console.log('fs',array)
-        return array
+            fs.readdir(dirname,(err,e)=>{
+                if(err){
+                    console.log(err)
+                    return
+                }
+                if(!obj[dirname]){
+                    obj[dirname] = e
+                    obj[dirname].forEach(v => {
+                        let url = dirname+v
+                        fs.stat(url,function(err,res){
+                            // console.log(res)
+                            if(err){
+                                console.log(err)
+                                return
+                            }
+                            console.log(url,res.isFile())
+                            if(!res.isFile()){
+                                ivy_read(url+'/',callback)
+                            }
+                        })
+                    });
+                }
+            })
     }
-    ivy_toRead(dirname)
-    
 }
 exports.ivy = ivy;
