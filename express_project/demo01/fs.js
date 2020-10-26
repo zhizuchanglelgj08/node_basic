@@ -9,6 +9,7 @@
  * 8. rmdir 删除目录
  * 9. unlink 删除文件
  */
+
 const fs = require('fs');
 const { dir } = require('console');
 exports.fileGo = function () {
@@ -72,41 +73,13 @@ exports.fileGo = function () {
     })
     //8. rmdir 删除目录，目录内有文件时没法删除，需配合unlinl使用
     //9. unlink 删除文件
+ /**
+  * 1. createReadStream 读取文件流
+  * 2. createWriteStream 写入文件流
+  */
+    let rs = fs.createReadStream('./A');
+    let ws = fs.createWriteStream('./B');
+    rs.pipe(ws)
 }
-exports.test = function () {
-    //1.判断服务器上面有没有upload目录。如果没有则创建该目录，如果有的话不操作。
-    fs.stat('./a/b/c', (err, data) => {
-        if (err) {
-            console.log(err)
 
-        } else {
-
-        }
-    })
-}
-let total = ''
-exports.createDir = function createDir(dir) {
-    if (!dir) {
-        console.log('请传入正确数据')
-        return
-    }
-    let container = dir.split('/');
-    if (container.length == 1) {
-        mkDir(container[0])
-    } else {
-        if (container[1] == '' && container.length == 2) {
-            mkDir(container[0])
-            return
-        }
-        if (container[0] == '' || container[0] == '.') {
-            mkDir(container[1])
-            container = container.slice(2).join('/')
-            createDir(container)
-        } else {
-            mkDir(container[0])
-            container = container.slice(1).join('/')
-            createDir(container)
-        }
-    }
-}
 

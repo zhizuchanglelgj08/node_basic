@@ -45,35 +45,42 @@ ivy.mkdir = function (dir,isCreateDir= true) {
 
 ivy.readdir = function(dirname,callback){
     let obj = {};
-    JSON.stringify(obj) == '{}' && setTimeout(function(){
-        callback(obj)
-    },1000)    
-    ivy_read(dirname,callback)
-    function ivy_read(dirname,callback){
-        // let url = dir1.join('/');
-            fs.readdir(dirname,(err,e)=>{
-                if(err){
-                    console.log(err)
-                    return
-                }
-                if(!obj[dirname]){
-                    obj[dirname] = e
-                    obj[dirname].forEach(v => {
-                        let url = dirname+v
-                        fs.stat(url,function(err,res){
-                            // console.log(res)
-                            if(err){
-                                console.log(err)
-                                return
-                            }
-                            console.log(url,res.isFile())
-                            if(!res.isFile()){
-                                ivy_read(url+'/',callback)
-                            }
-                        })
-                    });
-                }
-            })
-    }
+    return new Promise((resolve,reject)=>{
+        ivy_read(dirname,callback)
+        function ivy_read(dirname,callback){
+            // let url = dir1.join('/');
+                fs.readdir(dirname,(err,e)=>{
+                    if(err){
+                        console.log(err)
+                        return
+                    }
+                    if(!obj[dirname]){
+                        obj[dirname] = e
+                        obj[dirname].forEach(v => {
+                            let url = dirname+v
+                            fs.stat(url,function(err,res){
+                                // console.log(res)
+                                if(err){
+                                    console.log(err)
+                                    return
+                                }
+                                console.log(url,res.isFile())
+                                if(!res.isFile()){
+                                    ivy_read(url+'/',callback)
+                                }
+                            })
+                        });
+                    }
+                })
+                setTimeout(function(){
+                    resolve(obj)
+                },1000)
+        }
+
+        
+    })
+}
+ivy.byStream = function(fileName){
+    let rs = fs.createReadStream(fileName);
 }
 exports.ivy = ivy;
