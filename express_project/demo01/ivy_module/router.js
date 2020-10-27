@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const f = require('./function')
-exports.go = function (req, res) {
+module.exports = function (req, res) {
     let pathname = req.url;
     let extname = path.extname(pathname)
     if (pathname != '/favicon.ico') {
