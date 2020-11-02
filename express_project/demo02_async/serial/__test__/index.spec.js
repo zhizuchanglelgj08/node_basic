@@ -27,7 +27,13 @@ const { callback, promise, func, event } = require("..")
 //     setTimeout(Break, 1000)
 // })
 
+// test('event', done => {
+//     event();
+//     setTimeout(done,1000);
+// })
+import eventEm from '../../js/EventEmitter'
+
 test('event', done => {
-    event();
+    console.log(eventEm)
     setTimeout(done,1000);
 })

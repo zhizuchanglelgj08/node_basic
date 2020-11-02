@@ -1,4 +1,4 @@
-class EventEmitter {
+export default class EventEmitter {
     constructor() {
         this.handler = {};
     }
@@ -21,14 +21,14 @@ class EventEmitter {
     }
 }
 
-const event = new EventEmitter();
-event.on('some_event', (num,c) => {
-    console.log('some_event 事件触发:' + num,'ss',c);
-});
-let num = 0
-event.on('some_event',function(){
-    console.log('我是你爹')
-});
-setInterval(() => {
-    event.emit('some_event', num++,123);
-}, 1000);
+// const event = new EventEmitter();
+// event.on('some_event', (num,c) => {
+//     console.log('some_event 事件触发:' + num,'ss',c);
+// });
+// let num = 0
+// event.on('some_event',function(){
+//     console.log('我是你爹')
+// });
+// setInterval(() => {
+//     event.emit('some_event', num++,123);
+// }, 1000);
