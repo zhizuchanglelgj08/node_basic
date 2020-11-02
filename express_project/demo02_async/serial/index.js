@@ -48,7 +48,7 @@ exports.event = async () => {
 
     const { EventEmitter } = require('events');
     const event = new EventEmitter();
-    console.log(event)
+    console.log(EventEmitter)
     let i = 0;
     // event.on('end', () => i < ary.length && ary[i++](event))
     event.on('end', add)
