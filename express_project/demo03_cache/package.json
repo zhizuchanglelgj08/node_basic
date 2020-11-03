@@ -1,5 +1,5 @@
 {
-  "name": "demo02_async",
+  "name": "demo02_cache",
   "version": "1.0.0",
   "description": "demo",
   "main": "app.js",
@@ -8,5 +8,8 @@
   },
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "babel": "^6.23.0"
+  }
 }
